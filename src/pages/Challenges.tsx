@@ -134,7 +134,7 @@ const Challenges = () => {
                     <SelectValue placeholder="Category" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Categories</SelectItem>
+                    <SelectItem value="all-categories">All Categories</SelectItem>
                     <SelectItem value="Running">Running</SelectItem>
                     <SelectItem value="Walking">Walking</SelectItem>
                     <SelectItem value="Cycling">Cycling</SelectItem>
@@ -148,7 +148,7 @@ const Challenges = () => {
                     <SelectValue placeholder="Difficulty" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Difficulties</SelectItem>
+                    <SelectItem value="all-difficulties">All Difficulties</SelectItem>
                     <SelectItem value="Easy">Easy</SelectItem>
                     <SelectItem value="Medium">Medium</SelectItem>
                     <SelectItem value="Hard">Hard</SelectItem>
