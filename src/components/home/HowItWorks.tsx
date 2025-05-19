@@ -15,7 +15,7 @@ const steps = [
   {
     id: '03',
     title: 'Track your progress',
-    description: 'Log your daily activities and see how you're improving over time.',
+    description: 'Log your daily activities and see how you\'re improving over time.',
   },
   {
     id: '04',
