@@ -1,12 +1,19 @@
 
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Activity, User, Search, Menu, X, Bell } from 'lucide-react';
+import { Activity, User, Search, Menu, X, Bell, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { MobileMenu } from './MobileMenu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Badge } from '@/components/ui/badge';
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,12 +36,28 @@ export function Navbar() {
             <Link to="/challenges" className="text-gray-700 hover:text-strava-orange transition-colors">
               Challenges
             </Link>
+            <Link to="/group-challenges" className="text-gray-700 hover:text-strava-orange transition-colors">
+              Group Challenges
+            </Link>
             <Link to="/leaderboards" className="text-gray-700 hover:text-strava-orange transition-colors">
               Leaderboards
             </Link>
-            <Link to="/community" className="text-gray-700 hover:text-strava-orange transition-colors">
-              Community
-            </Link>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="text-gray-700 hover:text-strava-orange transition-colors flex items-center">
+                  <Users className="mr-1 h-4 w-4" />
+                  Community
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem asChild>
+                  <Link to="/friends" className="w-full cursor-pointer">Friends</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/profile" className="w-full cursor-pointer">Profile</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         )}
 
@@ -64,7 +87,7 @@ export function Navbar() {
 
           {isLoggedIn ? (
             <div className="flex items-center space-x-4">
-              <Link to="/dashboard">
+              <Link to="/profile">
                 <Avatar className="h-8 w-8 border-2 border-gray-200">
                   <AvatarImage src="https://github.com/shadcn.png" alt="User" />
                   <AvatarFallback className="bg-strava-blue text-white">JD</AvatarFallback>

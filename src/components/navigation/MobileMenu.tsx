@@ -1,8 +1,9 @@
 
 import { Link } from "react-router-dom";
-import { Activity, Award, Users, BarChart2, LogIn, UserPlus, Bell } from "lucide-react";
+import { Activity, Award, Users, BarChart2, LogIn, UserPlus, Bell, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 
 interface MobileMenuProps {
   isLoggedIn: boolean;
@@ -35,6 +36,15 @@ export function MobileMenu({ isLoggedIn, onClose }: MobileMenuProps) {
             </Link>
             
             <Link 
+              to="/group-challenges" 
+              className="flex items-center p-3 rounded-lg hover:bg-gray-100"
+              onClick={onClose}
+            >
+              <Users className="mr-3 h-5 w-5 text-strava-blue" />
+              <span>Group Challenges</span>
+            </Link>
+            
+            <Link 
               to="/leaderboards" 
               className="flex items-center p-3 rounded-lg hover:bg-gray-100"
               onClick={onClose}
@@ -60,13 +70,24 @@ export function MobileMenu({ isLoggedIn, onClose }: MobileMenuProps) {
               )}
             </Link>
             
+            <Separator />
+            
             <Link 
-              to="/community" 
+              to="/friends" 
               className="flex items-center p-3 rounded-lg hover:bg-gray-100"
               onClick={onClose}
             >
               <Users className="mr-3 h-5 w-5 text-strava-gray" />
-              <span>Community</span>
+              <span>Friends</span>
+            </Link>
+            
+            <Link 
+              to="/profile" 
+              className="flex items-center p-3 rounded-lg hover:bg-gray-100"
+              onClick={onClose}
+            >
+              <User className="mr-3 h-5 w-5 text-strava-gray" />
+              <span>Profile</span>
             </Link>
             
             {isLoggedIn && (
@@ -81,12 +102,12 @@ export function MobileMenu({ isLoggedIn, onClose }: MobileMenuProps) {
                 </Link>
                 
                 <Link 
-                  to="/profile" 
+                  to="/achievements" 
                   className="flex items-center p-3 rounded-lg hover:bg-gray-100"
                   onClick={onClose}
                 >
                   <Award className="mr-3 h-5 w-5 text-strava-gray" />
-                  <span>My Profile</span>
+                  <span>Achievements</span>
                 </Link>
               </>
             )}
