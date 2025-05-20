@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
-import { UserPlus, Github, Twitter } from 'lucide-react';
+import { UserPlus } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 
 export function SignUpForm() {
@@ -108,26 +107,6 @@ export function SignUpForm() {
             </Button>
           </div>
         </form>
-        
-        <div className="relative">
-          <div className="absolute inset-0 flex items-center">
-            <Separator />
-          </div>
-          <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-white px-2 text-gray-500">Or continue with</span>
-          </div>
-        </div>
-        
-        <div className="grid grid-cols-2 gap-4">
-          <Button variant="outline" type="button">
-            <Github className="mr-2 h-4 w-4" />
-            Github
-          </Button>
-          <Button variant="outline" type="button">
-            <Twitter className="mr-2 h-4 w-4" />
-            Twitter
-          </Button>
-        </div>
         
         <div className="mt-4 text-center text-sm">
           Already have an account?{" "}

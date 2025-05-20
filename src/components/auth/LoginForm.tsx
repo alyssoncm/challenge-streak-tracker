@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
-import { LogIn, Github, Twitter } from 'lucide-react';
+import { LogIn } from 'lucide-react';
 
 export function LoginForm() {
   const [email, setEmail] = useState('');
@@ -82,26 +82,6 @@ export function LoginForm() {
             </Button>
           </div>
         </form>
-        
-        <div className="relative">
-          <div className="absolute inset-0 flex items-center">
-            <Separator />
-          </div>
-          <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-white px-2 text-gray-500">Or continue with</span>
-          </div>
-        </div>
-        
-        <div className="grid grid-cols-2 gap-4">
-          <Button variant="outline" type="button">
-            <Github className="mr-2 h-4 w-4" />
-            Github
-          </Button>
-          <Button variant="outline" type="button">
-            <Twitter className="mr-2 h-4 w-4" />
-            Twitter
-          </Button>
-        </div>
         
         <div className="mt-4 text-center text-sm">
           Don't have an account?{" "}
