@@ -81,9 +81,9 @@ export default function Notifications() {
     
     // Simulate real-time notification
     const timer = setTimeout(() => {
-      const newNotification = {
+      const newNotification: Notification = {
         id: '6',
-        type: 'achievement',
+        type: 'achievement', // Explicitly using NotificationType
         title: 'New Achievement!',
         description: 'You reached 50% of your monthly goal',
         timestamp: new Date(),
