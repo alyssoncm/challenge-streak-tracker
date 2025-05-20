@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Users, Clock, Trophy, Calendar, BarChart, CheckCircle } from 'lucide-react';
+import { ArrowLeft, Users, Clock, Trophy, Calendar, BarChart, CheckCircle, PlusCircle } from 'lucide-react';
 import { Navbar } from '@/components/navigation/Navbar';
 import { Footer } from '@/components/navigation/Footer';
 import { Button } from "@/components/ui/button";
@@ -276,7 +276,15 @@ const ChallengeDetails = () => {
 
                 {joined && (
                   <div className="mt-8 border-t pt-6">
-                    <h3 className="text-xl font-semibold mb-4">Your Progress</h3>
+                    <div className="flex justify-between items-center mb-4">
+                      <h3 className="text-xl font-semibold">Your Progress</h3>
+                      <Link to={`/challenge/${id}/log-progress`}>
+                        <Button className="bg-purple-600 hover:bg-purple-700">
+                          <PlusCircle className="h-4 w-4 mr-2" />
+                          Log Today's Progress
+                        </Button>
+                      </Link>
+                    </div>
                     <div className="mb-2 flex justify-between items-center">
                       <span className="text-sm font-medium">2 days completed</span>
                       <span className="text-sm text-gray-500">
@@ -338,13 +346,21 @@ const ChallengeDetails = () => {
                           Join Challenge
                         </Button>
                       ) : (
-                        <Button 
-                          className="w-full bg-green-500 hover:bg-green-600 text-white text-lg py-6" 
-                          disabled
-                        >
-                          <CheckCircle className="h-5 w-5 mr-2" />
-                          Challenge Joined
-                        </Button>
+                        <>
+                          <Button 
+                            className="w-full bg-green-500 hover:bg-green-600 text-white text-lg py-6 mb-4" 
+                            disabled
+                          >
+                            <CheckCircle className="h-5 w-5 mr-2" />
+                            Challenge Joined
+                          </Button>
+                          <Link to={`/challenge/${id}/log-progress`} className="w-full">
+                            <Button className="w-full bg-purple-600 hover:bg-purple-700">
+                              <PlusCircle className="h-4 w-4 mr-2" />
+                              Log Today's Progress
+                            </Button>
+                          </Link>
+                        </>
                       )}
                     </div>
                   </div>
