@@ -1,14 +1,16 @@
 
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Activity, User, Search, Menu, X } from 'lucide-react';
+import { Activity, User, Search, Menu, X, Bell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { MobileMenu } from './MobileMenu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { Badge } from '@/components/ui/badge';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [unreadNotifications, setUnreadNotifications] = useState(3); // This would come from a global state or context
   const isMobile = useIsMobile();
   const isLoggedIn = false; // Replace with actual auth state
 
@@ -47,6 +49,18 @@ export function Navbar() {
               />
             </div>
           )}
+
+          <Link to="/notifications" className="relative">
+            <Bell className="h-6 w-6 text-gray-700 hover:text-strava-orange transition-colors" />
+            {unreadNotifications > 0 && (
+              <Badge 
+                variant="destructive" 
+                className="absolute -top-2 -right-2 px-1.5 min-w-[1.25rem] h-5 flex items-center justify-center text-xs"
+              >
+                {unreadNotifications > 9 ? '9+' : unreadNotifications}
+              </Badge>
+            )}
+          </Link>
 
           {isLoggedIn ? (
             <div className="flex items-center space-x-4">

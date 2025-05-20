@@ -1,7 +1,8 @@
 
 import { Link } from "react-router-dom";
-import { Activity, Award, Users, BarChart2, LogIn, UserPlus } from "lucide-react";
+import { Activity, Award, Users, BarChart2, LogIn, UserPlus, Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 interface MobileMenuProps {
   isLoggedIn: boolean;
@@ -9,6 +10,8 @@ interface MobileMenuProps {
 }
 
 export function MobileMenu({ isLoggedIn, onClose }: MobileMenuProps) {
+  const unreadNotifications = 3; // This would come from a global state or context
+  
   return (
     <div className="fixed inset-0 top-16 bg-white z-40 animate-fade-in">
       <div className="container px-4 py-6 flex flex-col h-full">
@@ -38,6 +41,23 @@ export function MobileMenu({ isLoggedIn, onClose }: MobileMenuProps) {
             >
               <BarChart2 className="mr-3 h-5 w-5 text-strava-blue" />
               <span>Leaderboards</span>
+            </Link>
+            
+            <Link 
+              to="/notifications" 
+              className="flex items-center p-3 rounded-lg hover:bg-gray-100"
+              onClick={onClose}
+            >
+              <Bell className="mr-3 h-5 w-5 text-strava-gray" />
+              <span>Notifications</span>
+              {unreadNotifications > 0 && (
+                <Badge 
+                  variant="destructive" 
+                  className="ml-2 px-1.5 min-w-[1.25rem] h-5 flex items-center justify-center text-xs"
+                >
+                  {unreadNotifications > 9 ? '9+' : unreadNotifications}
+                </Badge>
+              )}
             </Link>
             
             <Link 
