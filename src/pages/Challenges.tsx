@@ -106,9 +106,9 @@ const challengesData = [
 
 const Challenges = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [categoryFilter, setCategoryFilter] = useState('');
-  const [difficultyFilter, setDifficultyFilter] = useState('');
-  const [privacyFilter, setPrivacyFilter] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState('all');
+  const [difficultyFilter, setDifficultyFilter] = useState('all');
+  const [privacyFilter, setPrivacyFilter] = useState('all');
   const [sortOption, setSortOption] = useState('popular');
 
   // Filter and sort challenges based on user selections
@@ -117,9 +117,9 @@ const Challenges = () => {
       (searchTerm === '' || 
         challenge.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         challenge.description.toLowerCase().includes(searchTerm.toLowerCase())) &&
-      (categoryFilter === '' || challenge.category === categoryFilter) &&
-      (difficultyFilter === '' || challenge.difficulty === difficultyFilter) &&
-      (privacyFilter === '' || challenge.privacyType === privacyFilter)
+      (categoryFilter === 'all' || challenge.category === categoryFilter) &&
+      (difficultyFilter === 'all' || challenge.difficulty === difficultyFilter) &&
+      (privacyFilter === 'all' || challenge.privacyType === privacyFilter)
     )
     .sort((a, b) => {
       if (sortOption === 'popular') {
@@ -168,7 +168,7 @@ const Challenges = () => {
                     <SelectValue placeholder="Category" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Categories</SelectItem>
+                    <SelectItem value="all">All Categories</SelectItem>
                     <SelectItem value="Running">Running</SelectItem>
                     <SelectItem value="Walking">Walking</SelectItem>
                     <SelectItem value="Cycling">Cycling</SelectItem>
@@ -182,7 +182,7 @@ const Challenges = () => {
                     <SelectValue placeholder="Difficulty" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Difficulties</SelectItem>
+                    <SelectItem value="all">All Difficulties</SelectItem>
                     <SelectItem value="Easy">Easy</SelectItem>
                     <SelectItem value="Medium">Medium</SelectItem>
                     <SelectItem value="Hard">Hard</SelectItem>
@@ -194,7 +194,7 @@ const Challenges = () => {
                     <SelectValue placeholder="Privacy" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Types</SelectItem>
+                    <SelectItem value="all">All Types</SelectItem>
                     <SelectItem value="public">Public</SelectItem>
                     <SelectItem value="private">Private</SelectItem>
                   </SelectContent>
