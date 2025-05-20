@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import ForgotPassword from "./pages/ForgotPassword";
 import Challenges from "./pages/Challenges";
+import CreateChallenge from "./pages/CreateChallenge";
 import ChallengeDetails from "./pages/ChallengeDetails";
 import Leaderboards from "./pages/Leaderboards";
 import NotFound from "./pages/NotFound";
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/challenges" element={<Challenges />} />
+          <Route path="/create-challenge" element={<CreateChallenge />} />
           <Route path="/challenge/:id" element={<ChallengeDetails />} />
           <Route path="/leaderboards" element={<Leaderboards />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

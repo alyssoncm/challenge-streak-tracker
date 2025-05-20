@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Users, Clock, Search, Filter, Sliders } from 'lucide-react';
+import { Users, Clock, Search, Filter, Lock, Unlock, PlusCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 // Simulated challenge data
@@ -20,7 +20,9 @@ const challengesData = [
     difficulty: "Easy",
     participants: 1248,
     duration: "30 days",
-    featured: true
+    featured: true,
+    privacyType: "public",
+    createdAt: "2025-04-15T10:00:00Z"
   },
   {
     id: 2,
@@ -31,7 +33,9 @@ const challengesData = [
     difficulty: "Medium",
     participants: 856,
     duration: "60 days",
-    featured: false
+    featured: false,
+    privacyType: "public",
+    createdAt: "2025-04-10T14:30:00Z"
   },
   {
     id: 3,
@@ -42,7 +46,9 @@ const challengesData = [
     difficulty: "Hard",
     participants: 642,
     duration: "16 weeks",
-    featured: false
+    featured: false,
+    privacyType: "public",
+    createdAt: "2025-04-05T08:15:00Z"
   },
   {
     id: 4,
@@ -53,7 +59,9 @@ const challengesData = [
     difficulty: "Medium",
     participants: 1823,
     duration: "30 days",
-    featured: true
+    featured: true,
+    privacyType: "public",
+    createdAt: "2025-04-01T16:45:00Z"
   },
   {
     id: 5,
@@ -64,7 +72,9 @@ const challengesData = [
     difficulty: "Easy",
     participants: 729,
     duration: "21 days",
-    featured: false
+    featured: false,
+    privacyType: "private",
+    createdAt: "2025-03-28T11:20:00Z"
   },
   {
     id: 6,
@@ -75,7 +85,22 @@ const challengesData = [
     difficulty: "Hard",
     participants: 412,
     duration: "90 days",
-    featured: false
+    featured: false,
+    privacyType: "private",
+    createdAt: "2025-03-25T09:00:00Z"
+  },
+  {
+    id: 7,
+    title: "Team Workout Challenge",
+    description: "Join with friends for this team-based workout challenge",
+    image: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+    category: "Strength",
+    difficulty: "Medium",
+    participants: 245,
+    duration: "14 days",
+    featured: false,
+    privacyType: "private",
+    createdAt: "2025-03-20T15:30:00Z"
   },
 ];
 
@@ -83,6 +108,7 @@ const Challenges = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
   const [difficultyFilter, setDifficultyFilter] = useState('');
+  const [privacyFilter, setPrivacyFilter] = useState('');
   const [sortOption, setSortOption] = useState('popular');
 
   // Filter and sort challenges based on user selections
@@ -92,14 +118,14 @@ const Challenges = () => {
         challenge.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         challenge.description.toLowerCase().includes(searchTerm.toLowerCase())) &&
       (categoryFilter === '' || challenge.category === categoryFilter) &&
-      (difficultyFilter === '' || challenge.difficulty === difficultyFilter)
+      (difficultyFilter === '' || challenge.difficulty === difficultyFilter) &&
+      (privacyFilter === '' || challenge.privacyType === privacyFilter)
     )
     .sort((a, b) => {
       if (sortOption === 'popular') {
         return b.participants - a.participants;
       } else if (sortOption === 'newest') {
-        // Using ID as a proxy for "newest" in this example
-        return b.id - a.id;
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
       }
       return 0;
     });
@@ -109,9 +135,17 @@ const Challenges = () => {
       <Navbar />
       <main className="flex-1 bg-gray-50 py-8">
         <div className="container mx-auto px-4">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">Challenges</h1>
-            <p className="text-gray-600 mt-2">Find and join fitness challenges that match your goals.</p>
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">Challenges</h1>
+              <p className="text-gray-600 mt-2">Find and join fitness challenges that match your goals.</p>
+            </div>
+            <Link to="/create-challenge">
+              <Button className="strava-button">
+                <PlusCircle className="h-4 w-4 mr-2" />
+                Create Challenge
+              </Button>
+            </Link>
           </div>
           
           {/* Search and filters */}
@@ -134,7 +168,7 @@ const Challenges = () => {
                     <SelectValue placeholder="Category" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all-categories">All Categories</SelectItem>
+                    <SelectItem value="">All Categories</SelectItem>
                     <SelectItem value="Running">Running</SelectItem>
                     <SelectItem value="Walking">Walking</SelectItem>
                     <SelectItem value="Cycling">Cycling</SelectItem>
@@ -148,10 +182,21 @@ const Challenges = () => {
                     <SelectValue placeholder="Difficulty" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all-difficulties">All Difficulties</SelectItem>
+                    <SelectItem value="">All Difficulties</SelectItem>
                     <SelectItem value="Easy">Easy</SelectItem>
                     <SelectItem value="Medium">Medium</SelectItem>
                     <SelectItem value="Hard">Hard</SelectItem>
+                  </SelectContent>
+                </Select>
+                
+                <Select value={privacyFilter} onValueChange={setPrivacyFilter}>
+                  <SelectTrigger className="w-full md:w-40">
+                    <SelectValue placeholder="Privacy" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">All Types</SelectItem>
+                    <SelectItem value="public">Public</SelectItem>
+                    <SelectItem value="private">Private</SelectItem>
                   </SelectContent>
                 </Select>
                 
@@ -203,9 +248,22 @@ const Challenges = () => {
                     <Badge variant="outline" className="bg-gray-100 text-gray-600">
                       {challenge.category}
                     </Badge>
-                    <div className="flex items-center text-xs text-gray-500">
-                      <Users className="h-3 w-3 mr-1" />
-                      <span>{challenge.participants.toLocaleString()} participants</span>
+                    <div className="flex items-center text-xs text-gray-500 gap-2">
+                      {challenge.privacyType === "private" ? (
+                        <Badge variant="outline" className="flex items-center gap-1 border-gray-300">
+                          <Lock className="h-3 w-3" />
+                          Private
+                        </Badge>
+                      ) : (
+                        <Badge variant="outline" className="flex items-center gap-1 border-gray-300">
+                          <Unlock className="h-3 w-3" />
+                          Public
+                        </Badge>
+                      )}
+                      <div className="flex items-center">
+                        <Users className="h-3 w-3 mr-1" />
+                        <span>{challenge.participants.toLocaleString()}</span>
+                      </div>
                     </div>
                   </div>
                   <h3 className="font-bold text-xl text-gray-900 mb-2">{challenge.title}</h3>
